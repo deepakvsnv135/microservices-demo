@@ -160,9 +160,13 @@ kind: Ingress
 metadata:
   name: frontend-ingress
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - netflix.crydevops.shop
+    secretName: netflix-crydevops-tls  # must exist
   rules:
   - host: netflix.crydevops.shop
     http:
@@ -174,7 +178,6 @@ spec:
             name: frontend
             port:
               number: 80
-
 ---
 apiVersion: v1
 kind: Service
