@@ -352,7 +352,7 @@ metadata:
   labels:
     app: frontend
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: frontend
   ports:
@@ -379,28 +379,6 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: frontend
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: frontend-ingress
-  annotations:
-    # Redirect HTTP to HTTPS if you have TLS configured later
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-spec:
-  ingressClassName: nginx
-  rules:
-  - host: netflix.crydevops.shop
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: frontend
-            port:
-              number: 80
-
 ---
 apiVersion: apps/v1
 kind: Deployment
